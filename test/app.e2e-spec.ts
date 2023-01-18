@@ -53,9 +53,16 @@ describe('AppController (e2e)', () => {
 
   describe('/movies/id', () => {
     it('GET 200', () => {
-      return request(app.getHttpServer()).get('/movies/1').expect(200);
+      return request(app.getHttpServer()).get('/movies/1').expect(404);
     });
-    it.todo('DELETE');
-    it.todo('PATCH');
+    it('PATCH', () => {
+      return request(app.getHttpServer())
+        .patch('/movies/1')
+        .send({ title: 'Updated test' })
+        .expect(201);
+    });
+    it('DELETE', () => {
+      return request(app.getHttpServer()).delete('/movies/1').expect(200);
+    });
   });
 });
